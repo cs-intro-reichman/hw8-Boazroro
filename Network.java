@@ -11,6 +11,9 @@ public class Network {
         // Handle the boolean flag as needed
     }
 
+    public int getUserCount() {
+        return this.userCount;
+    }
 
     public void addUser(String name) {
         for (int i = 0; i < userCount; i++) {
