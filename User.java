@@ -13,100 +13,94 @@
     /** Creates a user with an empty list of followees. */
     public User(String name) {
         this.name = name;
-        this.follows = new String[maxfCount];
-        this.fCount = 0;
+        follows = new String[maxfCount]; // fixed-size array for storing followees
+        fCount = 0;                      // initial number of followees
     }
 
     /** Creates a user with some followees. The only purpose of this constructor is 
      *  to allow testing the toString and follows methods, before implementing other methods. */
     public User(String name, boolean gettingStarted) {
         this(name);
-        this.follows[0] = "Foo";
-        this.follows[1] = "Bar";
-        this.follows[2] = "Baz";
-        this.fCount = 3;
+        follows[0] = "Foo";
+        follows[1] = "Bar";
+        follows[2] = "Baz";
+        fCount = 3;
     }
 
     /** Returns the name of this user. */
     public String getName() {
-        return this.name;
+        return name;
     }
 
     /** Returns the follows array. */
     public String[] getfFollows() {
-        return this.follows.clone();
+        return follows;
     }
 
     /** Returns the number of users that this user follows. */
     public int getfCount() {
-        return this.fCount;
+        return fCount;
     }
 
     /** If this user follows the given name, returns true; otherwise returns false. */
     public boolean follows(String name) {
-        for (int i = 0; i < this.fCount; i++) {
-            if (this.follows[i] != null && this.follows[i].equalsIgnoreCase(name)) {
+        for(int i = 0; i<fCount;i++){   
+            if (follows[i] != null && follows[i].equalsIgnoreCase(name)){
                 return true;
             }
         }
         return false;
     }
-
     /** Makes this user follow the given name. If successful, returns true. 
      *  If this user already follows the given name, or if the follows list is full, does nothing and returns false; */
     public boolean addFollowee(String name) {
-        if (this.follows(name) || this.fCount >= maxfCount) {
+        if (follows(name) || fCount == maxfCount){
             return false;
         }
-        this.follows[this.fCount] = name;
-        this.fCount++;
+        follows[fCount] = name;
+        fCount++;
         return true;
     }
 
     /** Removes the given name from the follows list of this user. If successful, returns true.
      *  If the name is not in the list, does nothing and returns false. */
     public boolean removeFollowee(String name) {
-        int index = -1;
-        for (int i = 0; i < this.fCount; i++) {
-            if (this.follows[i] != null && this.follows[i].equals(name)) {
-                index = i;
-                break;
+        for (int i = 0; i < fCount; i++) {
+            if (follows[i] != null && follows[i].equals(name)) {
+                for (int j = i; j < fCount - 1; j++) {
+                    follows[j] = follows[j + 1];
+                }
+                follows[fCount - 1] = null;
+                fCount--;
+                return true;
             }
         }
-        if (index == -1) {
-            return false;
-        }
-        for (int i = index; i < this.fCount - 1; i++) {
-            this.follows[i] = this.follows[i + 1];
-        }
-        this.follows[--this.fCount] = null;
-        return true;
+        return false;
     }
 
     /** Counts the number of users that both this user and the other user follow.
     /*  Notice: This is the size of the intersection of the two follows lists. */
     public int countMutual(User other) {
-        int count = 0;
-        for (int i = 0; i < this.fCount; i++) {
-            if (this.follows[i] != null && other.follows(this.follows[i])) {
-                count++;
+        int counter3 = 0;
+        for (int i = 0; i< other.fCount; i++){
+            if (other.follows[i] != null && this.follows(other.follows[i])){
+                counter3++;
             }
         }
-        return count;
+        return counter3;
     }
 
     /** Checks is this user is a friend of the other user.
      *  (if two users follow each other, they are said to be "friends.") */
     public boolean isFriendOf(User other) {
-        return this.follows(other.name) && other.follows(this.name);
+        return other.follows(this.name) && this.follows(other.name);
     }
-
     /** Returns this user's name, and the names that s/he follows. */
-public String toString() {
-    String ans = this.name + " -> ";
-    for (int i = 0; i < this.fCount; i++) {
-        ans += this.follows[i] + " ";
+    public String toString() {
+        String sof = name + " -> ";
+        for (int i = 0; i < fCount; i++) {
+            sof = sof + follows[i] + " ";
+        }
+        return sof;
     }
-    return ans.trim();
-}
 }

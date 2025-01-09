@@ -1125,7 +1125,7 @@ public class TestHandler {
         String expected = "Charlie";
         String actual = "";
         try {
-            actual += network.recommendWhoToFollow("Alice");
+            actual += network.whomShouldIFollow("Alice");
         } catch (Exception e) {
             actual = TesterMessagesEnum.ERROR + e.getMessage();
         }
@@ -1152,7 +1152,7 @@ public class TestHandler {
         String expected = "Bob";
         String actual = "";
         try {
-            actual += network.recommendWhoToFollow("Eve");
+            actual += network.whomShouldIFollow("Eve");
         } catch (Exception e) {
             actual = TesterMessagesEnum.ERROR + e.getMessage();
         }
@@ -1183,7 +1183,7 @@ public class TestHandler {
         String expected = "Eve";
         String actual = "";
         try {
-            actual += network.recommendWhoToFollow("Alice");
+            actual += network.whomShouldIFollow("Alice");
         } catch (Exception e) {
             actual = TesterMessagesEnum.ERROR + e.getMessage();
         }
