@@ -1,3 +1,5 @@
+import java.util.Arrays;
+
 /**
  * Represents a user in a social network. A user is characterized by a name,
  * a list of user names that s/he follows, and the list's size.
@@ -30,6 +32,9 @@ public class User {
         follows[2] = "Baz";
         fCount = 3;
     }
+    public String[] getfFollows() {
+    return Arrays.copyOf(follows, fCount);
+}
 
     /** Returns the name of this user. */
     public String getName() {
