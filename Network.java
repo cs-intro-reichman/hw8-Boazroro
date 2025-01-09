@@ -75,7 +75,7 @@ public boolean addFollowee(String name1, String name2) {
         return false;
     }
 
-    return user1.addFollowee(name2);
+    return user1.addFollowees(name2);
 }
 
     /**
@@ -110,25 +110,69 @@ public String recommendWhoToFollow(String name) {
      * Computes and returns the name of the most popular user in this network:
      * The user who appears the most in the follow lists of all the users.
      */
-    public String mostPopularUser() {
-        //// Replace the following statement with your code
-        return null;
+public String mostPopularUser() {
+    int[] followerCounts = new int[userCount];
+    String[] userNames = new String[userCount];
+
+    for (int i = 0; i < userCount; i++) {
+        userNames[i] = users[i].getName();
     }
 
-    /**
+    for (User user : users) {
+        for (String followee : user.getFollowees()) {
+            for (int i = 0; i < userCount; i++) {
+                if (userNames[i].equals(followee)) {
+                    followerCounts[i]++;
+                    break;
+                }
+            }
+        }
+    }
+
+    int maxCount = -1;
+    String mostPopular = null;
+
+    for (int i = 0; i < userCount; i++) {
+        if (followerCounts[i] > maxCount) {
+            maxCount = followerCounts[i];
+            mostPopular = userNames[i];
+        }
+    }
+
+    return mostPopular;
+}
+
+   /**
      * Returns the number of times that the given name appears in the follows lists
      * of all
      * the users in this network. Note: A name can appear 0 or 1 times in each list.
      */
-    private int followeeCount(String name) {
-        //// Replace the following statement with your code
-        return 0;
+private int followeeCount(String name) {
+    int count = 0;
+    for (User user : users) {
+        if (user.follows(name)) {
+            count++;
+        }
     }
+    return count;
+}
 
     // Returns a textual description of all the users in this network, and who they
-    // follow.
-    public String toString() {
-        //// Replace the following statement with your code
-        return null;
+// follow.
+public String toString() {
+    StringBuilder sb = new StringBuilder();
+    for (int i = 0; i < userCount; i++) {
+        User user = users[i];
+        sb.append(user.getName()).append(" follows: ");
+        String[] followees = user.getFollowees();
+        for (int j = 0; j < followees.length; j++) {
+            sb.append(followees[j]);
+            if (j < followees.length - 1) {
+                sb.append(", ");
+            }
+        }
+        sb.append("\n");
     }
+    return sb.toString();
+}
 }

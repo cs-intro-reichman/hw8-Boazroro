@@ -38,7 +38,7 @@ public class User {
     }
 
     /** Returns the follows array. */
-    public String[] getfFollows() {
+    public String[] getFollowees() {
         return follows;
     }
 
@@ -64,7 +64,7 @@ public class User {
      * If this user already follows the given name, or if the follows list is full,
      * does nothing and returns false;
      */
-public boolean addFollowee(String name) {
+public boolean addFollowees(String name) {
     if (follows(name)) {
         return false;
     }
