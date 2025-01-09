@@ -1,6 +1,7 @@
 /** Represents a social network. The network has users, who follow other uesrs.
  *  Each user is an instance of the User class. */
 public class Network {
+    int c =0;
 
     // Fields
     private User[] users;  // the users in this network (an array of User objects)
