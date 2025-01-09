@@ -75,7 +75,7 @@ public boolean addFollowee(String name1, String name2) {
         return false;
     }
 
-    return user1.addFollowees(name2);
+    return user1.addFollowee(name2);
 }
 
     /**
@@ -157,22 +157,20 @@ private int followeeCount(String name) {
     return count;
 }
 
-    // Returns a textual description of all the users in this network, and who they
-// follow.
 public String toString() {
-    StringBuilder sb = new StringBuilder();
+    String result = "";
     for (int i = 0; i < userCount; i++) {
         User user = users[i];
-        sb.append(user.getName()).append(" follows: ");
+        result += user.getName() + " follows: ";
         String[] followees = user.getFollowees();
         for (int j = 0; j < followees.length; j++) {
-            sb.append(followees[j]);
+            result += followees[j];
             if (j < followees.length - 1) {
-                sb.append(", ");
+                result += ", ";
             }
         }
-        sb.append("\n");
+        result += "\n";
     }
-    return sb.toString();
+    return result;
 }
 }
